@@ -1,5 +1,5 @@
 # LINE Messaging API (LINE bot)で経験サンプリング法 (ESM)アプリを作ってみた
-<img src="res/demonstration.gif" width="300" alt="demonstration.gif"><br>
+<img src="res/demonstration.gif" alt="demonstration.gif"><br>
 # 仕様
 ## ESM機能
 9:00~21:00に1日平均3回，ランダムなタイミングで通知が送信され，通知送信から90分以内にボタンを押せば，回答を開始できます。  
@@ -9,7 +9,7 @@
 ![db.jpg](/res/db.jpg)
 ## ID登録機能
 任意の参加者IDを登録すれば，ESMの回答と紐づけられます (上記データベース画像のparticipant_idにあたります)。<br><br>
-<img src="res/id.gif" width="300" alt="id.gif"><br>
+<img src="res/id.gif" alt="id.gif"><br>
 ## テスト起動機能
 通常，通知はランダムなタイミングで送信されますが，「テスト起動」と入力すれば，動作テストなどのために強制的にESMを開始することもできます。
 # ESMデモアプリ
