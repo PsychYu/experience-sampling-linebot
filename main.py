@@ -102,7 +102,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TemplateSendMessage(
-                alt_text="デバイスがサポートされていません。",
+                alt_text=push_instruction,
                 template=ButtonsTemplate(
                     text=push_instruction,
                     actions=[PostbackAction(label=push_button, data=push_button, display_text=push_button)]

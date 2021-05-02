@@ -15,7 +15,7 @@ class Push:
         line_bot_api.push_message(
             to=user_id,
             messages=TemplateSendMessage(
-                alt_text="デバイスがサポートされていません。",
+                alt_text=push_instruction,
                 template=ButtonsTemplate(
                     text=push_instruction,
                     actions=[PostbackAction(label=push_button, data=push_button, display_text=push_button)]
