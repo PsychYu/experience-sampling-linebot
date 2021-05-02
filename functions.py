@@ -1,21 +1,26 @@
 import os
 import datetime
 from linebot import LineBotApi
-from linebot.models import PostbackAction, QuickReplyButton, QuickReply, TextSendMessage
+from linebot.models import PostbackAction, QuickReplyButton, QuickReply, TextSendMessage, TemplateSendMessage, ButtonsTemplate
 
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 
 # プッシュ送信
 class Push:
-    # instruction: 教示，text: ボタン表示，user_id: LINE個人識別子
-    def send_push_message(self, instruction, text, user_id=None):
+    # push_instruction: 教示，push_button: ボタン表示，user_id: LINE個人識別子
+    def send_push_message(self, push_instruction, push_button, user_id=None):
         if user_id is None:
             return False
         line_bot_api.push_message(
             to=user_id,
-            messages=TextSendMessage(text=instruction, quick_reply=QuickReply(items=[QuickReplyButton(
-                    action=PostbackAction(label=text, data=text))]))
+            messages=TemplateSendMessage(
+                alt_text="デバイスがサポートされていません。",
+                template=ButtonsTemplate(
+                    text=push_instruction,
+                    actions=[PostbackAction(label=push_button, data=push_button, display_text=push_button)]
+                )
+            )       
         )
 
 # 質問項目

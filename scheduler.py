@@ -56,7 +56,7 @@ if __name__ == "__main__" and random <= 3 / (6 * 12) and datetime.time(9) <= now
     
     for user_id in user_ids:
         # プッシュメッセージ送信
-        push.send_push_message("モニタリングしませんか？ (ボタンは90分間有効です)", "モニタリング", user_id)
+        push.send_push_message(main.push_instruction, main.push_button, user_id)
 
         c.execute("SELECT `participant_id` FROM `user` WHERE `user_id` = '"+user_id+"';")
         participant_id = c.fetchall()[0][0]

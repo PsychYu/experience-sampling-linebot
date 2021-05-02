@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import FollowEvent, MessageEvent, PostbackEvent, PostbackAction, TextMessage, QuickReplyButton, MessageAction, QuickReply, TextSendMessage
+from linebot.models import FollowEvent, MessageEvent, PostbackEvent, PostbackAction, TextMessage, QuickReplyButton, MessageAction, QuickReply, TextSendMessage, TemplateSendMessage, ButtonsTemplate
 from functions import Questions
 
 app = Flask(__name__)
@@ -72,6 +72,11 @@ def on_follow(event):
     # メッセージの送信
     line_bot_api.reply_message(reply_token=reply_token, messages=TextSendMessage('登録ありがとうございます！'))
 
+# PUSH通知の教示
+push_instruction = "モニタリングしませんか？ (ボタンは90分間有効です)"
+
+# PUSH通知のボタン
+push_button = "モニタリング開始"
 
 # 以下，アプリ動作の実装
 
@@ -96,7 +101,14 @@ def handle_message(event):
         conn.commit()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="モニタリングしませんか？(ボタンは90分間有効です)", quick_reply=QuickReply(items=[QuickReplyButton(action=PostbackAction(label="モニタリング", data="モニタリング"))])))
+            TemplateSendMessage(
+                alt_text="デバイスがサポートされていません。",
+                template=ButtonsTemplate(
+                    text=push_instruction,
+                    actions=[PostbackAction(label=push_button, data=push_button, display_text=push_button)]
+                )
+            )
+        )           
         c.execute("SELECT `participant_id` FROM `user` WHERE `user_id` = '"+user_id+"';")
         participant_id = c.fetchall()[0][0]
         c.execute("INSERT INTO `monitor_results` (`user_id`, `participant_id`, `sending`, `waiting`) VALUES ('"+user_id+"', '"+participant_id+"', '"+datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')+"', 'TRUE');")
@@ -156,7 +168,7 @@ def on_postback(event):
                 text="IDを入力してください。",
             ))
 
-    if "モニタリング" == postback_data:
+    if "モニタリング開始" == postback_data:
         c.execute("SELECT `sending` FROM `monitor_results` WHERE `user_id` = '"+user_id+"' AND waiting='TRUE';")
         sending = c.fetchall()[0][0]
 
