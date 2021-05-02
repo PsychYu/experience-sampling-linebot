@@ -17,6 +17,8 @@
 LINE公式アカウントを使用しています。  
 以下の，QRコードおよびリンク，LINE IDから友だち登録できます。  
 以下アプリを使用される際は，botへの回答およびLINEユーザー識別子がデータベースに収集される点をご了承ください。<br><br>
+※2021/5/2追記<br>
+本アプリは，スマートフォン上のLINEからの使用を意図したものであり，PCのLINEアプリからは正常に動作しない可能性が高いです。<br><br>
 ![qr.png](/res/qr.png)
 <br><br>
 <a href="https://lin.ee/rLfiEMh"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a><br>
