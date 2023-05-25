@@ -96,7 +96,7 @@ def handle_message(event):
         print("エラー: " + str(e))
 
     # テスト
-    if "テスト起動" == text:
+    if "テスト" == text:
         c.execute("UPDATE `monitor_results` SET `waiting`='FALSE' WHERE waiting='TRUE';")
         conn.commit()
         line_bot_api.reply_message(
